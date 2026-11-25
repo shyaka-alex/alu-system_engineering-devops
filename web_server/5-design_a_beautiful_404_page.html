@@ -6,147 +6,221 @@
 <title>404 - Ceci n'est pas une page</title>
 <style>
   :root {
-    --sky-top: #8ec5f0;
-    --sky-bottom: #dff0fb;
-    --ink: #1d2a3a;
-    --muted: #4a5b6e;
-    --card: rgba(255, 255, 255, 0.72);
-    --accent: #c0392b;
-    --pipe: #5b3a29;
-    --pipe-dark: #3b2418;
-    --smoke: rgba(90, 105, 120, 0.55);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --sky-top: #0f1b2d;
-      --sky-bottom: #26405f;
-      --ink: #eef3f8;
-      --muted: #b4c3d3;
-      --card: rgba(15, 27, 45, 0.7);
-      --accent: #ff8a7a;
-      --pipe: #b8865f;
-      --pipe-dark: #8a5d3b;
-      --smoke: rgba(220, 230, 240, 0.55);
-    }
+    --ink: #0b0b0b;
+    --lime: #7dff5e;
+    --card: #f2f2f2;
+    --muted: #5b5b5b;
+    --page: #ffffff;
   }
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
+  html, body { margin: 0; }
   body {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
     color: var(--ink);
-    background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom));
+    background: var(--page);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 24px 36px; }
+
+  header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 24px;
-    overflow-x: hidden;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 8px 4px 22px;
   }
-  .cloud {
-    position: fixed;
-    width: 180px;
-    height: 54px;
-    background: #fff;
-    border-radius: 60px;
-    opacity: 0.85;
-    filter: blur(1px);
-    animation: drift 60s linear infinite;
+  .brand {
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
   }
-  .cloud::before, .cloud::after {
-    content: "";
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-  }
-  .cloud::before { width: 70px; height: 70px; top: -32px; left: 24px; }
-  .cloud::after { width: 90px; height: 90px; top: -44px; left: 70px; }
-  .cloud.one { top: 12%; left: -200px; }
-  .cloud.two { top: 30%; left: -200px; animation-duration: 90s; animation-delay: -30s; transform: scale(0.7); }
-  .cloud.three { top: 70%; left: -200px; animation-duration: 75s; animation-delay: -50s; transform: scale(1.2); }
-  @media (prefers-color-scheme: dark) { .cloud { opacity: 0.12; } }
-  @keyframes drift { to { transform: translateX(calc(100vw + 400px)); } }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a.plain { color: var(--ink); text-decoration: none; font-size: 15px; }
+  nav a.plain:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-  main {
-    position: relative;
-    z-index: 1;
-    max-width: 640px;
-    width: 100%;
-    text-align: center;
-    background: var(--card);
-    backdrop-filter: blur(6px);
-    border-radius: 24px;
-    padding: 32px 28px 36px;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
-  }
-  .code {
-    font-size: clamp(64px, 18vw, 120px);
-    font-weight: 700;
-    letter-spacing: 6px;
-    margin: 0;
-    color: var(--accent);
-    line-height: 1;
-  }
-  svg { width: min(320px, 80%); height: auto; margin: 8px 0 0; }
-  h1 {
-    font-size: clamp(26px, 6vw, 40px);
-    font-style: italic;
-    font-weight: 400;
-    margin: 12px 0 8px;
-  }
-  p { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 6px 0; }
-  .home {
+  .btn {
     display: inline-block;
-    margin-top: 22px;
-    padding: 12px 26px;
-    border-radius: 999px;
-    background: var(--accent);
+    background: var(--ink);
     color: #fff;
     text-decoration: none;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
     font-weight: 600;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 15px;
+    padding: 14px 22px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
   }
-  .home:hover, .home:focus-visible {
+  .btn:hover, .btn:focus-visible {
+    background: var(--lime);
+    color: var(--ink);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  .btn:focus-visible, nav a.plain:focus-visible, .brand:focus-visible {
     outline: 3px solid var(--ink);
     outline-offset: 3px;
   }
-  .puff { animation: rise 4s ease-in infinite; transform-origin: center; opacity: 0; }
-  .puff.p2 { animation-delay: 1.3s; }
-  .puff.p3 { animation-delay: 2.6s; }
-  @keyframes rise {
-    0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
-    20%  { opacity: 0.9; }
-    100% { transform: translate(28px, -70px) scale(1.6); opacity: 0; }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--card);
+    border-radius: 32px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    min-height: 520px;
+  }
+  .copy { padding: 56px 0 52px 56px; align-self: center; }
+  .code {
+    margin: 0;
+    font-size: 170px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+  h1 {
+    margin: 22px 0 16px;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  .hl {
+    background: var(--lime);
+    padding: 0 0.22em;
+    border-radius: 10px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .lead {
+    max-width: 430px;
+    margin: 0 0 30px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .art { display: flex; align-items: flex-end; min-width: 0; }
+  .art svg { display: block; width: 135%; max-width: none; height: auto; margin-left: -12%; }
+
+  .flick-a { animation: flick 1.4s steps(1) infinite; }
+  .flick-b { animation: flick 1.4s steps(1) infinite; animation-delay: 0.7s; }
+  @keyframes flick { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  .wiggle { transform-box: fill-box; transform-origin: 50% 50%; animation: wiggle 3.2s ease-in-out infinite; }
+  @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-3deg); } }
+
+  .foot {
+    margin-top: 16px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 28px;
+    padding: 40px 56px 32px;
+  }
+  .cols { display: flex; flex-wrap: wrap; gap: 40px 72px; }
+  .cols h2 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .cols p, .cols a { margin: 0; color: #bdbdbd; font-size: 14px; line-height: 1.7; text-decoration: none; display: block; }
+  .cols a:hover, .cols a:focus-visible { color: var(--lime); outline: none; text-decoration: underline; text-underline-offset: 4px; }
+  .quote {
+    margin: 34px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a2a;
+    color: #8f8f8f;
+    font-size: 13px;
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: 0; }
+    .copy { padding: 36px 28px 8px; }
+    .code { font-size: 112px; }
+    h1 { font-size: 30px; }
+    .art svg { width: 125%; margin-left: -8%; }
+    .foot { padding: 32px 28px 26px; }
+    nav a.plain { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .cloud, .puff { animation: none; }
-    .puff { opacity: 0.6; }
+    .flick-a, .flick-b, .wiggle { animation: none; }
+    .btn { transition: none; }
   }
 </style>
 </head>
 <body>
-  <div class="cloud one"></div>
-  <div class="cloud two"></div>
-  <div class="cloud three"></div>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">web-01</a>
+      <nav>
+        <a class="plain" href="/">Home</a>
+        <a class="btn" href="/">Back to start</a>
+      </nav>
+    </header>
 
-  <main>
-    <p class="code" aria-hidden="true">404</p>
+    <main class="hero">
+      <div class="copy">
+        <p class="code" aria-hidden="true">404.</p>
+        <h1><span class="hl">Ceci n'est pas une page.</span></h1>
+        <p class="lead">Error 404: the address you asked for doesn’t exist on this server. It never was a page, and that is exactly the point.</p>
+        <a class="btn" href="/">Go back home</a>
+      </div>
 
-    <svg viewBox="0 0 320 170" role="img" aria-label="A drawing of a pipe with smoke rising from it">
-      <circle class="puff" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
-      <circle class="puff p2" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
-      <circle class="puff p3" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
-      <path d="M205 62 L205 98 Q205 116 187 116 L108 116 Q60 116 52 84 L68 78 Q78 96 108 98 L187 98 L187 62 Z" fill="var(--pipe)"></path>
-      <rect x="180" y="52" width="38" height="20" rx="6" fill="var(--pipe-dark)"></rect>
-      <path d="M52 84 L20 70 Q12 66 14 76 L18 92 Q22 100 32 98 L58 92 Z" fill="var(--pipe-dark)"></path>
-      <ellipse cx="160" cy="150" rx="96" ry="9" fill="rgba(0, 0, 0, 0.18)"></ellipse>
-    </svg>
+      <div class="art">
+        <svg viewBox="0 0 560 340" role="img" aria-label="A plug pulled out of its socket, with sparks flying between them">
+          <g fill="none" stroke="#0b0b0b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M112 168 C 70 200, 40 250, 70 345"></path>
+            <path d="M446 118 C 490 110, 520 150, 620 128"></path>
+          </g>
+          <g class="wiggle">
+            <g transform="translate(150 140) rotate(-18)">
+              <ellipse cx="0" cy="0" rx="46" ry="50" fill="#0b0b0b"></ellipse>
+              <ellipse cx="12" cy="0" rx="36" ry="44" fill="#ffffff" stroke="#0b0b0b" stroke-width="5"></ellipse>
+              <rect x="22" y="-27" width="62" height="15" rx="7.5" fill="#7dff5e" stroke="#0b0b0b" stroke-width="4"></rect>
+              <rect x="22" y="11" width="62" height="15" rx="7.5" fill="#7dff5e" stroke="#0b0b0b" stroke-width="4"></rect>
+            </g>
+          </g>
+          <g transform="translate(400 112)">
+            <ellipse cx="0" cy="0" rx="48" ry="54" fill="#0b0b0b"></ellipse>
+            <ellipse cx="-9" cy="0" rx="40" ry="46" fill="#7dff5e" stroke="#0b0b0b" stroke-width="5"></ellipse>
+            <rect x="-26" y="-26" width="34" height="11" rx="5.5" fill="#0b0b0b"></rect>
+            <rect x="-26" y="14" width="34" height="11" rx="5.5" fill="#0b0b0b"></rect>
+          </g>
+          <g class="flick-a" stroke="#0b0b0b" stroke-width="4" stroke-linecap="round">
+            <path d="M255 70 L268 92"></path>
+            <path d="M318 62 L310 86"></path>
+            <path d="M236 80 L222 64"></path>
+            <path d="M265 218 L276 194"></path>
+          </g>
+          <g class="flick-b" stroke="#0b0b0b" stroke-width="4" stroke-linecap="round">
+            <path d="M285 56 L288 82"></path>
+            <path d="M300 205 L316 186"></path>
+            <path d="M330 218 L318 196"></path>
+            <path d="M246 182 L226 190"></path>
+          </g>
+        </svg>
+      </div>
+    </main>
 
-    <h1><span lang="fr">Ceci n'est pas une page</span></h1>
-    <p>This is not a page. In fact, it never was.</p>
-    <p>The address you asked for does not exist on this server.</p>
-    <a class="home" href="/">Back to a real page</a>
-  </main>
+    <footer class="foot">
+      <div class="cols">
+        <div>
+          <h2>Lost?</h2>
+          <a href="/">Home</a>
+        </div>
+        <div>
+          <h2>What happened</h2>
+          <p>The address you asked for doesn’t exist.</p>
+          <p>The server answered, politely, with a 404.</p>
+        </div>
+        <div>
+          <h2>Status</h2>
+          <p>HTTP 404 Not Found</p>
+          <p>Served by nginx on web-01</p>
+        </div>
+      </div>
+      <p class="quote">Ceci n'est pas une pipe. René Magritte, 1929</p>
+    </footer>
+  </div>
 </body>
 </html>
