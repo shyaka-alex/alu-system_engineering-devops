@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Installs HAProxy on a new Ubuntu server and load balances web-01 and web-02 with the roundrobin algorithm
+WEB_01_IP="18.130.189.158"
+WEB_02_IP="13.135.103.225"
+apt-get update -y
+apt-get install -y haproxy
+if ! grep -q '^ENABLED=1' /etc/default/haproxy
+then
+  echo "ENABLED=1" >> /etc/default/haproxy
+fi
+cat > /etc/haproxy/haproxy.cfg << CONF
+global
+    log /dev/log local0
+    chroot /var/lib/haproxy
+    stats socket /run/haproxy/admin.sock mode 660 level admin
+    stats timeout 30s
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+
+frontend http-in
+    bind *:80
+    default_backend web-backend
+
+backend web-backend
+    balance roundrobin
+    server 7406-web-01 $WEB_01_IP:80 check
+    server 7406-web-02 $WEB_02_IP:80 check
+CONF
+service haproxy restart
