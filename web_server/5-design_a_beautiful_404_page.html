@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 - Ceci n'est pas une page</title>
+<style>
+  :root {
+    --sky-top: #8ec5f0;
+    --sky-bottom: #dff0fb;
+    --ink: #1d2a3a;
+    --muted: #4a5b6e;
+    --card: rgba(255, 255, 255, 0.72);
+    --accent: #c0392b;
+    --pipe: #5b3a29;
+    --pipe-dark: #3b2418;
+    --smoke: rgba(90, 105, 120, 0.55);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sky-top: #0f1b2d;
+      --sky-bottom: #26405f;
+      --ink: #eef3f8;
+      --muted: #b4c3d3;
+      --card: rgba(15, 27, 45, 0.7);
+      --accent: #ff8a7a;
+      --pipe: #b8865f;
+      --pipe-dark: #8a5d3b;
+      --smoke: rgba(220, 230, 240, 0.55);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--ink);
+    background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+  .cloud {
+    position: fixed;
+    width: 180px;
+    height: 54px;
+    background: #fff;
+    border-radius: 60px;
+    opacity: 0.85;
+    filter: blur(1px);
+    animation: drift 60s linear infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: "";
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+  }
+  .cloud::before { width: 70px; height: 70px; top: -32px; left: 24px; }
+  .cloud::after { width: 90px; height: 90px; top: -44px; left: 70px; }
+  .cloud.one { top: 12%; left: -200px; }
+  .cloud.two { top: 30%; left: -200px; animation-duration: 90s; animation-delay: -30s; transform: scale(0.7); }
+  .cloud.three { top: 70%; left: -200px; animation-duration: 75s; animation-delay: -50s; transform: scale(1.2); }
+  @media (prefers-color-scheme: dark) { .cloud { opacity: 0.12; } }
+  @keyframes drift { to { transform: translateX(calc(100vw + 400px)); } }
+
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+    background: var(--card);
+    backdrop-filter: blur(6px);
+    border-radius: 24px;
+    padding: 32px 28px 36px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+  }
+  .code {
+    font-size: clamp(64px, 18vw, 120px);
+    font-weight: 700;
+    letter-spacing: 6px;
+    margin: 0;
+    color: var(--accent);
+    line-height: 1;
+  }
+  svg { width: min(320px, 80%); height: auto; margin: 8px 0 0; }
+  h1 {
+    font-size: clamp(26px, 6vw, 40px);
+    font-style: italic;
+    font-weight: 400;
+    margin: 12px 0 8px;
+  }
+  p { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 6px 0; }
+  .home {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-weight: 600;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .home:hover, .home:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .puff { animation: rise 4s ease-in infinite; transform-origin: center; opacity: 0; }
+  .puff.p2 { animation-delay: 1.3s; }
+  .puff.p3 { animation-delay: 2.6s; }
+  @keyframes rise {
+    0%   { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    20%  { opacity: 0.9; }
+    100% { transform: translate(28px, -70px) scale(1.6); opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cloud, .puff { animation: none; }
+    .puff { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+  <div class="cloud one"></div>
+  <div class="cloud two"></div>
+  <div class="cloud three"></div>
+
+  <main>
+    <p class="code" aria-hidden="true">404</p>
+
+    <svg viewBox="0 0 320 170" role="img" aria-label="A drawing of a pipe with smoke rising from it">
+      <circle class="puff" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
+      <circle class="puff p2" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
+      <circle class="puff p3" cx="236" cy="58" r="12" fill="var(--smoke)"></circle>
+      <path d="M205 62 L205 98 Q205 116 187 116 L108 116 Q60 116 52 84 L68 78 Q78 96 108 98 L187 98 L187 62 Z" fill="var(--pipe)"></path>
+      <rect x="180" y="52" width="38" height="20" rx="6" fill="var(--pipe-dark)"></rect>
+      <path d="M52 84 L20 70 Q12 66 14 76 L18 92 Q22 100 32 98 L58 92 Z" fill="var(--pipe-dark)"></path>
+      <ellipse cx="160" cy="150" rx="96" ry="9" fill="rgba(0, 0, 0, 0.18)"></ellipse>
+    </svg>
+
+    <h1><span lang="fr">Ceci n'est pas une page</span></h1>
+    <p>This is not a page. In fact, it never was.</p>
+    <p>The address you asked for does not exist on this server.</p>
+    <a class="home" href="/">Back to a real page</a>
+  </main>
+</body>
+</html>
