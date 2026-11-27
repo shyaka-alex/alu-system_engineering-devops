@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Fixes the container so Apache runs and the root page returns Hello Holberton
+echo "Hello Holberton" > /var/www/html/index.html
+service apache2 restart
